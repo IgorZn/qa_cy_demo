@@ -20,10 +20,6 @@ jobs:
       - run: node --version
       - run: node -p 'os.cpus()'
 
-
-      - name: Cypress info
-        run: npx cypress info
-
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
