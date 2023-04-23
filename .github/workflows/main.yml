@@ -25,4 +25,3 @@ jobs:
         with:
           start: yarn cy:run
           browser: chrome
-          record: true
