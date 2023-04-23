@@ -24,6 +24,5 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           start: yarn cy:run
-          parallel: true
           browser: chrome
           record: true
