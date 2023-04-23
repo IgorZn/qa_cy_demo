@@ -4,15 +4,31 @@ on: push
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     container: cypress/browsers:node18.12.0-chrome107
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
+
+      # Install NPM dependencies
+      - name: Cypress install
+        uses: cypress-io/github-action@v5
+        with:
+          runTests: false
+      # report machine parameters
+      - run: yarn cypress info
+      - run: node --version
+      - run: node -p 'os.cpus()'
+
+
+      - name: Cypress info
+        run: npx cypress info
+
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          build: npm i
-          start: npm run cy:run
+          start: yarn cy:run
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 120
+          browser: chrome
+          record: true
