@@ -23,3 +23,22 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+const compareSnapshotCommand = require('cypress-visual-regression/dist/command');
+
+
+compareSnapshotCommand();
+
+
+Cypress.Commands.add("loginBy", (username = Cypress.env('testEmail'), password= Cypress.env('badPWD')) => {
+    cy.get('#email').type(username)
+    cy.get('#password').type(password)
+    cy.contains('button', 'Sign in').click()
+})
+
+
+Cypress.Commands.add("typeLoginPassword", (username = Cypress.env('testEmail'), password= Cypress.env('badPWD')) => {
+    cy.get('#email').type(username)
+    cy.get('#password').type(password)
+})

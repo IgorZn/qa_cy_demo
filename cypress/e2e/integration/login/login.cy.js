@@ -5,16 +5,13 @@ describe('Login page', () => {
     })
 
     it('Error message for invalide email/password', () => {
-        cy.get('#email').type(Cypress.env('testEmail'))
-        cy.get('#password').type(Cypress.env('badPWD'))
-        cy.contains('button', 'Sign in').click()
+        cy.loginBy()
         cy.contains('Please enter a valid email or password')
 
     })
 
     it('Eye button allow to show/hide the password input', () => {
-        cy.get('#email').type(Cypress.env('testEmail'))
-        cy.get('#password').type(Cypress.env('badPWD'))
+        cy.typeLoginPassword()
         cy.get('[data-testid=showIcon]').click()
 
         cy.get('#password').should('have.value', Cypress.env('badPWD'))
@@ -35,6 +32,10 @@ describe('Login page', () => {
 
     })
 
+    it('An error message is displayed if password is wrong with default error message', () => {
+        cy.loginBy('some.user@mail.com', 'somePdw')
+        cy.contains('Please enter a valid email or password')
+    })
 
 
 })
